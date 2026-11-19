@@ -171,7 +171,7 @@ export function buildReceipt(cart, products, storeName) {
   const dateStr = now.toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' });
   const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
   const lines = [];
-  lines.push((storeName || 'KasirLokal · KasirLokal'));
+  lines.push((storeName || 'KasirLokal'));
   lines.push(dateStr + ' ' + timeStr);
   lines.push('--------------------------------');
   let total = 0;
