@@ -4,14 +4,14 @@ export const CATEGORIES = ['Makanan', 'Minuman', 'Camilan'];
 export const CATEGORY_FILTERS = ['Semua', 'Makanan', 'Minuman', 'Camilan'];
 
 export const SEED_PRODUCTS = [
-  { id: 'p-kopi-susu', nama: 'Kopi Susu Gula Aren', kategori: 'Minuman', harga: 18000, stok: 24, deskripsi: 'Kopi robusta, susu segar, gula aren cair.', imageUrl: '/img/produk/kopi-susu.svg', unggulan: true },
-  { id: 'p-es-teh', nama: 'Es Teh Manis', kategori: 'Minuman', harga: 5000, stok: 40, deskripsi: 'Teh manis dingin yang menyegarkan.', imageUrl: '/img/produk/es-teh.svg', unggulan: false },
-  { id: 'p-nasgor', nama: 'Nasi Goreng Kampung', kategori: 'Makanan', harga: 20000, stok: 15, deskripsi: 'Nasi goreng bumbu kampung dengan telur.', imageUrl: '/img/produk/nasgor.svg', unggulan: true },
-  { id: 'p-ayam-geprek', nama: 'Ayam Geprek Sambal Bawang', kategori: 'Makanan', harga: 22000, stok: 12, deskripsi: 'Ayam geprek crispy dengan sambal bawang.', imageUrl: '/img/produk/ayam-geprek.svg', unggulan: true },
-  { id: 'p-mie-goreng', nama: 'Mie Goreng Jawa', kategori: 'Makanan', harga: 18000, stok: 10, deskripsi: 'Mie goreng bumbu Jawa dengan sayuran.', imageUrl: '/img/produk/mie-goreng.svg', unggulan: false },
-  { id: 'p-pisang-goreng', nama: 'Pisang Goreng Keju (4 pcs)', kategori: 'Camilan', harga: 12000, stok: 0, deskripsi: 'Pisang goreng renyah dengan taburan keju.', imageUrl: '/img/produk/pisang-goreng.svg', unggulan: false },
-  { id: 'p-tahu-crispy', nama: 'Tahu Crispy Bumbu Tabur', kategori: 'Camilan', harga: 10000, stok: 18, deskripsi: 'Tahu goreng crispy dengan bumbu tabur.', imageUrl: '/img/produk/tahu-crispy.svg', unggulan: false },
-  { id: 'p-air-mineral', nama: 'Air Mineral Botol', kategori: 'Minuman', harga: 4000, stok: 50, deskripsi: 'Air mineral botol 600 ml.', imageUrl: '/img/produk/air-mineral.svg', unggulan: false },
+  { id: 'p-kopi-susu', nama: 'Kopi Susu Gula Aren', kategori: 'Minuman', harga: 18000, stok: 24, deskripsi: 'Kopi robusta, susu segar, gula aren cair.', imageUrl: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?w=400&auto=format&fit=crop&q=60', unggulan: true },
+  { id: 'p-es-teh', nama: 'Es Teh Manis', kategori: 'Minuman', harga: 5000, stok: 40, deskripsi: 'Teh manis dingin yang menyegarkan.', imageUrl: 'https://images.unsplash.com/photo-1497534446932-c925b458314e?w=400&auto=format&fit=crop&q=60', unggulan: false },
+  { id: 'p-nasgor', nama: 'Nasi Goreng Kampung', kategori: 'Makanan', harga: 20000, stok: 15, deskripsi: 'Nasi goreng bumbu kampung dengan telur.', imageUrl: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&auto=format&fit=crop&q=60', unggulan: true },
+  { id: 'p-ayam-geprek', nama: 'Ayam Geprek Sambal Bawang', kategori: 'Makanan', harga: 22000, stok: 12, deskripsi: 'Ayam geprek crispy dengan sambal bawang.', imageUrl: 'https://images.unsplash.com/photo-1727961315041-8e384dde2a63?q=80&w=961&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D', unggulan: true },
+  { id: 'p-mie-goreng', nama: 'Mie Goreng Jawa', kategori: 'Makanan', harga: 18000, stok: 10, deskripsi: 'Mie goreng bumbu Jawa dengan sayuran.', imageUrl: 'https://images.unsplash.com/photo-1585032226651-759b368d7246?w=400&auto=format&fit=crop&q=60', unggulan: false },
+  { id: 'p-pisang-goreng', nama: 'Pisang Goreng Keju (4 pcs)', kategori: 'Camilan', harga: 12000, stok: 0, deskripsi: 'Pisang goreng renyah dengan taburan keju.', imageUrl: 'https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?w=400&auto=format&fit=crop&q=60', unggulan: false },
+  { id: 'p-tahu-crispy', nama: 'Tahu Crispy Bumbu Tabur', kategori: 'Camilan', harga: 10000, stok: 18, deskripsi: 'Tahu goreng crispy dengan bumbu tabur.', imageUrl: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=400&auto=format&fit=crop&q=60', unggulan: false },
+  { id: 'p-air-mineral', nama: 'Air Mineral Botol', kategori: 'Minuman', harga: 4000, stok: 50, deskripsi: 'Air mineral botol 600 ml.', imageUrl: 'https://images.unsplash.com/photo-1608885898957-a599fb15ec36?w=400&auto=format&fit=crop&q=60', unggulan: false },
 ];
 
 export function formatRupiah(n) {
@@ -58,7 +58,7 @@ export function validateProduct(p, existingProducts, editingId) {
   const desk = p.deskripsi == null ? '' : String(p.deskripsi);
   if (desk.length > 160) errors.deskripsi = 'Deskripsi maksimal 160 karakter.';
   const img = p.imageUrl == null ? '' : String(p.imageUrl).trim();
-  if (img && !img.startsWith('/img/produk/')) errors.imageUrl = 'Gunakan path lokal yang diawali /img/produk/.';
+  if (img && !(img.startsWith('/img/produk/') || /^https?:\/\//i.test(img))) errors.imageUrl = 'Gunakan path lokal /img/produk/ atau URL gambar (https).';
   return errors;
 }
 

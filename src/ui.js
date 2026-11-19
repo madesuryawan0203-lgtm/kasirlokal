@@ -32,6 +32,7 @@ export function initUI(container) {
           <button class="nav-link" data-action="setView" data-view="dashboard">Dashboard</button>
         </nav>
         <div class="nav-right">
+          <button class="btn btn-manage" data-action="goDashboard">Kelola Produk</button>
           <button class="cart-nav-btn" id="cartNavBtn" data-action="openCartSheet" aria-label="Keranjang">🛒 <span class="cart-badge" id="cartBadge">0</span></button>
         </div>
       </div>
@@ -101,15 +102,23 @@ function render() {
 function renderCatalogHtml() {
   const filtered = filterProducts(state.products, state.query, state.category, state.sort);
   const summary = computeSummary(state.products);
+  const totalProd = state.products.length;
+  const totalStok = state.products.reduce((s, p) => s + (Number(p.stok) || 0), 0);
   let html = '';
   html += `<section class="hero">
     <div class="hero-text">
-      <h1>Kopi & camilan rumahan, siap dipesan hari ini.</h1>
-      <p>Pilih menu favorit, cek stok, lalu kirim struk lewat WhatsApp.</p>
+      <span class="hero-badge">POS & Pembukuan UMKM</span>
+      <h1>Catat Cepat, Usaha Makin Hebat.</h1>
+      <p>Kelola pesanan harian, pantau stok otomatis, dan cetak struk WhatsApp dalam satu layar.</p>
       <div class="hero-cta">
-        <a class="btn btn-primary" href="#katalog">Lihat menu</a>
-        <button class="btn btn-secondary" data-action="goDashboard">Kelola produk</button>
+        <a class="btn btn-hero-solid" href="#katalog">Lihat menu</a>
+        <button class="btn btn-hero-ghost" data-action="goDashboard">Kelola produk</button>
       </div>
+    </div>
+    <div class="hero-glass">
+      <div class="hero-glass-title">Status toko hari ini</div>
+      <div class="hero-glass-row"><span>Produk aktif</span><strong>${totalProd}</strong></div>
+      <div class="hero-glass-row"><span>Stok tersedia</span><strong>${totalStok}</strong></div>
     </div>
   </section>`;
 
@@ -120,7 +129,7 @@ function renderCatalogHtml() {
     </div>
     <div class="filter-bar">
       <div class="search-wrap">
-        <span class="search-icon" aria-hidden="true">🔍</span>
+        <span class="search-icon" aria-hidden="true"></span>
         <input type="search" id="searchInput" class="search-input" placeholder="Cari nama atau deskripsi…" value="${escapeHtml(state.query)}" aria-label="Pencarian produk" />
         ${state.query ? '<button class="search-clear" data-action="clearSearch" aria-label="Hapus kata kunci">×</button>' : ''}
       </div>
@@ -175,13 +184,16 @@ function renderProductCard(p) {
     <div class="product-body">
       <div class="product-cat">${escapeHtml(p.kategori)}</div>
       <h3 class="product-name">${escapeHtml(p.nama)}</h3>
-      <div class="product-price">${formatRupiah(p.harga)}</div>
       <div class="product-stock ${outOfStock ? 'stock-out' : ''}">
-        ${outOfStock ? '● Stok habis' : '● Stok: ' + p.stok}
+        <span class="stock-dot"></span>
+        ${outOfStock ? 'Stok habis' : 'Stok: ' + p.stok}
       </div>
-      <button class="btn btn-order ${outOfStock ? 'disabled' : ''}" ${outOfStock ? 'disabled aria-disabled="true"' : ''} data-action="addToCart" data-id="${escapeHtml(p.id)}">
-        ${outOfStock ? 'Habis' : 'Pesan'}
-      </button>
+      <div class="product-footer">
+        <div class="product-price">${formatRupiah(p.harga)}</div>
+        <button class="btn btn-add ${outOfStock ? 'disabled' : ''}" ${outOfStock ? 'disabled aria-disabled="true"' : ''} data-action="addToCart" data-id="${escapeHtml(p.id)}">
+          ${outOfStock ? 'Habis' : '+ Tambah'}
+        </button>
+      </div>
     </div>
   </article>`;
 }
@@ -272,7 +284,7 @@ function renderDashboardHtml() {
         <tbody>`;
     for (const p of state.products) {
       html += `<tr>
-        <td class="td-prod"><img src="${escapeHtml(p.imageUrl || '/img/placeholder.svg')}" alt="" class="thumb" onerror="this.src='/img/placeholder.svg'" /> ${escapeHtml(p.nama)}</td>
+        <td class="td-prod"><img src="${escapeHtml(p.imageUrl || '/img/placeholder.svg')}" alt="" class="thumb" onerror="this.onerror=null;this.src='/img/placeholder.svg';" /> ${escapeHtml(p.nama)}</td>
         <td><span class="cat-chip">${escapeHtml(p.kategori)}</span></td>
         <td>${formatRupiah(p.harga)}</td>
         <td>${p.stok === 0 ? '<span class="badge badge-habis">Habis</span>' : p.stok}</td>
@@ -289,7 +301,7 @@ function renderDashboardHtml() {
     html += `<div class="prod-cards">`;
     for (const p of state.products) {
       html += `<div class="prod-card">
-        <img src="${escapeHtml(p.imageUrl || '/img/placeholder.svg')}" alt="" class="thumb-lg" onerror="this.src='/img/placeholder.svg'" />
+        <img src="${escapeHtml(p.imageUrl || '/img/placeholder.svg')}" alt="" class="thumb-lg" onerror="this.onerror=null;this.src='/img/placeholder.svg';" />
         <div class="prod-card-body">
           <div class="prod-card-name">${escapeHtml(p.nama)}</div>
           <div class="prod-card-meta">${escapeHtml(p.kategori)} · ${formatRupiah(p.harga)} · ${p.stok === 0 ? 'Habis' : 'Stok: ' + p.stok}</div>
