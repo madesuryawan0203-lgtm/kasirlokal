@@ -38,7 +38,7 @@ export function initUI(container) {
     </header>
     <div id="bannerSlot"></div>
     <main id="view" class="view"></main>
-    <footer class="footer">KasirLokal · RasaNusa · Data contoh, tanpa backend · 2026</footer>
+    <footer class="footer">KasirLokal · KasirLokal · Data contoh, tanpa backend · 2026</footer>
     <div id="toastSlot"></div>
     <div id="modalSlot"></div>
   `;
@@ -386,7 +386,7 @@ function renderConfirmDialog() {
 
 function renderReceiptModal() {
   const cart = state._receiptCart || [];
-  const { text } = buildReceipt(cart, state.products, 'KasirLokal · RasaNusa');
+  const { text } = buildReceipt(cart, state.products, 'KasirLokal · KasirLokal');
   state._receiptText = text;
   const url = buildWaUrl(text);
   return `<div class="modal-overlay" data-action="closeReceipt"></div>
@@ -661,7 +661,7 @@ function removeModal() {
 }
 
 async function copyReceiptText() {
-  const text = state._receiptText || buildReceipt(state._receiptCart || [], state.products, 'KasirLokal · RasaNusa').text;
+  const text = state._receiptText || buildReceipt(state._receiptCart || [], state.products, 'KasirLokal · KasirLokal').text;
   try {
     await navigator.clipboard.writeText(text);
     showToast('Teks disalin.');
